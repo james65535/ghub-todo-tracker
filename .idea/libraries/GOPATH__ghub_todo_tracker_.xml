@@ -1,0 +1,19 @@
+<component name="libraryTable">
+  <library name="GOPATH &lt;ghub-todo-tracker&gt;">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../Golactic" />
+      <root url="file://$PROJECT_DIR$/../yesProject" />
+      <root url="file://$PROJECT_DIR$/../gong-boiler-plate" />
+      <root url="file://$PROJECT_DIR$/../github.com" />
+    </CLASSES>
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/../Golactic" />
+      <root url="file://$PROJECT_DIR$/../yesProject" />
+      <root url="file://$PROJECT_DIR$/../gong-boiler-plate" />
+      <root url="file://$PROJECT_DIR$/../github.com" />
+    </SOURCES>
+    <excluded>
+      <root url="file://$PROJECT_DIR$" />
+    </excluded>
+  </library>
+</component>
