@@ -4,6 +4,7 @@ import (
 	"net/http"
 	"fmt"
 	"io/ioutil"
+	"github.com/james65535/ghub-todo-tracker/utils"
 )
 
 func main () {
@@ -20,7 +21,8 @@ func printRequest(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		panic(err)
 	} else {
-		fmt.Println("request:")
-		fmt.Println(string(body))
+		sBody := string(body)
+		utils.WebLog(sBody)
+		fmt.Printf("request: \n%v", sBody)
 	}
 }

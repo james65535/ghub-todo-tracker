@@ -1,16 +1,22 @@
 <component name="libraryTable">
   <library name="GOPATH &lt;ghub-todo-tracker&gt;">
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/../Golactic" />
-      <root url="file://$PROJECT_DIR$/../yesProject" />
-      <root url="file://$PROJECT_DIR$/../gong-boiler-plate" />
-      <root url="file://$PROJECT_DIR$/../github.com" />
+      <root url="file://$PROJECT_DIR$/../../../distributed" />
+      <root url="file://$PROJECT_DIR$/../../../Golactic" />
+      <root url="file://$PROJECT_DIR$/../../../sensor" />
+      <root url="file://$PROJECT_DIR$/../../../distributed2" />
+      <root url="file://$PROJECT_DIR$/../../../learning" />
+      <root url="file://$PROJECT_DIR$/../../../gong-boiler-plate" />
+      <root url="file://$PROJECT_DIR$/../.." />
     </CLASSES>
     <SOURCES>
-      <root url="file://$PROJECT_DIR$/../Golactic" />
-      <root url="file://$PROJECT_DIR$/../yesProject" />
-      <root url="file://$PROJECT_DIR$/../gong-boiler-plate" />
-      <root url="file://$PROJECT_DIR$/../github.com" />
+      <root url="file://$PROJECT_DIR$/../../../distributed" />
+      <root url="file://$PROJECT_DIR$/../../../Golactic" />
+      <root url="file://$PROJECT_DIR$/../../../sensor" />
+      <root url="file://$PROJECT_DIR$/../../../distributed2" />
+      <root url="file://$PROJECT_DIR$/../../../learning" />
+      <root url="file://$PROJECT_DIR$/../../../gong-boiler-plate" />
+      <root url="file://$PROJECT_DIR$/../.." />
     </SOURCES>
     <excluded>
       <root url="file://$PROJECT_DIR$" />
