@@ -16,7 +16,7 @@ func main() {
 	http.HandleFunc("/", printRequest)
 	http.ListenAndServe(*address, nil)
 	// TODO check stuff
-	// TODO check other stuff
+	// TODO check other stuff 1
 }
 
 func printRequest(w http.ResponseWriter, r *http.Request) {
