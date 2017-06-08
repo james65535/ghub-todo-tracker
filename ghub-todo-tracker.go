@@ -14,14 +14,15 @@ var address = flag.String("address", "localhost:8000", "server address")
 func main() {
 	flag.Parse()
 
-	http.HandleFunc("/", printRequest)
+	http.HandleFunc("/", receivePush)
 	http.ListenAndServe(*address, nil)
 	// TODO check stuff
 	// 2
 
 }
 
-func printRequest(w http.ResponseWriter, r *http.Request) {
+// Receives JSON payload from ghub webhook push
+func receivePush(w http.ResponseWriter, r *http.Request) {
 
 	// w.Header().Set("Content-Type","application/json")
 	// w.Header().Set("Access-Control-Allow-Origin", "*")
@@ -30,16 +31,14 @@ func printRequest(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		panic(err)
 	}
-	sBody := string(body)
-	// utils.WebLog(sBody)
-	fmt.Printf("request: \n%v", sBody)
-	responseParse, err := parser.PushParse(body)
+
+	commitUrl, err := parser.GetCommitUrl(body)
 	if err != nil {
 		http.Error(w, err.Error(), 500)
 		fmt.Printf("error: %v\n", err)
 		panic(err)
 	}
-	utils.WebLog(string(responseParse))
+	utils.WebLog(commitUrl)
 	// TODO tester
 
 }
