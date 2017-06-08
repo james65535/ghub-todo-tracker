@@ -1,15 +1,21 @@
 package main
 
 import (
-	"net/http"
 	"fmt"
-	"io/ioutil"
 	"github.com/james65535/ghub-todo-tracker/utils"
+	"io/ioutil"
+	"net/http"
+	"flag"
 )
 
-func main () {
+var address = flag.String("address", "localhost:8000", "server address")
+
+func main() {
+
+	flag.Parse()
+
 	http.HandleFunc("/", printRequest)
-	http.ListenAndServe("localhost:8000", nil)
+	http.ListenAndServe(*address, nil)
 }
 
 func printRequest(w http.ResponseWriter, r *http.Request) {

@@ -1,8 +1,8 @@
 package utils
 
 import (
-	"os"
 	"log"
+	"os"
 )
 
 const logFile = "weblog.log"
