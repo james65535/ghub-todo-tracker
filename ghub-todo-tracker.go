@@ -31,7 +31,7 @@ func printRequest(w http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 	sBody := string(body)
-	utils.WebLog(sBody)
+	// utils.WebLog(sBody)
 	fmt.Printf("request: \n%v", sBody)
 	responseParse, err := parser.PushParse(body)
 	if err != nil {
