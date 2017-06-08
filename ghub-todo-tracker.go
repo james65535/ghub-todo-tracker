@@ -11,11 +11,11 @@ import (
 var address = flag.String("address", "localhost:8000", "server address")
 
 func main() {
-
 	flag.Parse()
 
 	http.HandleFunc("/", printRequest)
 	http.ListenAndServe(*address, nil)
+	// TODO check stuff
 }
 
 func printRequest(w http.ResponseWriter, r *http.Request) {
