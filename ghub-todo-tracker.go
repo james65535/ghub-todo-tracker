@@ -33,27 +33,13 @@ func printRequest(w http.ResponseWriter, r *http.Request) {
 	sBody := string(body)
 	utils.WebLog(sBody)
 	fmt.Printf("request: \n%v", sBody)
-	data := []byte(`{
-  		"person": {
-		    "name": {
-		      "first": "Leonid",
-		      "last": "Bugaev",
-		      "fullName": "Leonid Bugaev"
-		    },
-		    "github": {
-		      "handle": "buger",
-		      "followers": 109
-		    },
-		    "avatars": [
-		      { "url": "https://avatars1.githubusercontent.com/u/14009?v=3&s=460", "type": "thumbnail" }
-		    ]
-		    },
-		    "company": {
-		      "name": "Acme"
-  		}
-	}`)
-	responseParse := PushParse(data)
+	responseParse, err := parser.PushParse(body)
+	if err != nil {
+		http.Error(w, err.Error(), 500)
+		fmt.Printf("error: %v\n", err)
+		panic(err)
+	}
 	utils.WebLog(string(responseParse))
-
+	// TODO tester
 
 }
