@@ -23,8 +23,9 @@ func ParseCommit(b *[]byte)(string, error) {
 func ParsePatch(s *[]byte)(string, error) {
 	patch, _, _, err := jsonparser.Get(
 		*s,
-		"commits",
-		"id")
+		"files",
+		"0",
+		"patch")
 
 	// TODO parse patch statements to grab TODOs
 	result := string(patch)
