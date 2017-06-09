@@ -8,11 +8,14 @@ func GetCommitUrl(b []byte)(string, error) {
 		b,
 		"commits",
 		"id")
+	// expected format: https://api.github.com/repos/USER/PROJECT/commits{/sha}
 	commitUrl, _, _, err := jsonparser.Get(
 		b,
 		"repository",
 		"commits_url")
+	// Remove {/sha} from URL
+	commitUrl = commitUrl[:len(commitUrl)-6]
 
-	result := string(commitId) + string(commitUrl)
+	result := string(commitUrl) + "/" + string(commitId)
 	return string(result), err
 }
