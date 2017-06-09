@@ -1,11 +1,12 @@
 package main
 
 import (
-	"fmt"
-	"github.com/james65535/ghub-todo-tracker/utils"
 	"io/ioutil"
 	"net/http"
 	"flag"
+	"fmt"
+	"github.com/james65535/ghub-todo-tracker/utils"
+	"github.com/james65535/ghub-todo-tracker/clients"
 	"github.com/james65535/ghub-todo-tracker/parser"
 )
 
@@ -16,29 +17,41 @@ func main() {
 
 	http.HandleFunc("/", receivePush)
 	http.ListenAndServe(*address, nil)
-	// TODO check stuff
-	// 2
-
 }
 
-// Receives JSON payload from ghub webhook push
+// Receives JSON payload from webhook push
 func receivePush(w http.ResponseWriter, r *http.Request) {
 
-	// w.Header().Set("Content-Type","application/json")
-	// w.Header().Set("Access-Control-Allow-Origin", "*")
+	// TODO Check error and provide response
+	/* if err != nil {
+		http.Error(w, err.Error(), 500)
+		fmt.Printf("error: %v\n", err)
+		panic(err)
+	}*/
+	// TODO write 200 ok response
 	// w.Write(response)
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		panic(err)
 	}
 
-	commitUrl, err := parser.GetCommitUrl(body)
+	todoGenerator(&body)
+	// TODO determine what to log
+	// utils.WebLog()
+}
+
+func todoGenerator(b *[]byte) {
+	// Parse commit URL from ghub webhook JSON push
+	commitUrl, err := parser.ParseCommit(b)
 	if err != nil {
-		http.Error(w, err.Error(), 500)
 		fmt.Printf("error: %v\n", err)
 		panic(err)
 	}
 	utils.WebLog(commitUrl)
-	// TODO tester
+
+	patch, err := clients.CommitsClient(&commitUrl)
+	issue, err := parser.ParsePatch(&patch)
+	utils.WebLog(issue)
+	// err := clients.IssuesClient(&issue)
 
 }
