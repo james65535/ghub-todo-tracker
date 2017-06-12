@@ -74,6 +74,6 @@ func todoGenerator(b *[]byte) {
 		}
 	}
 
-	// Todo connect to ghub and submit issue
+	// TODO connect to ghub and submit issue
 
 }
