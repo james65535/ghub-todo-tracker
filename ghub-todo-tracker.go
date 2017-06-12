@@ -41,7 +41,12 @@ func receivePush(w http.ResponseWriter, r *http.Request) {
 }
 
 func todoGenerator(b *[]byte) {
+
 	// Parse commit URL from ghub webhook JSON push
+	/* FIXME add error handling: github.com/james65535/ghub-todo-tracker/parser.ParseCommit(0xc420041c80, 0x0, 0x0, 0xc4200f0000, 0x1871)
+	ghub-todo-tracker/parser/ghub_json_parser.go:24 +0x1d0
+	*/
+
 	commitUrl, err := parser.ParseCommit(b)
 	if err != nil {
 		detail := fmt.Errorf("Error getting commit url: %v", err)
@@ -49,17 +54,26 @@ func todoGenerator(b *[]byte) {
 	}
 	utils.WebLog(commitUrl)
 
+	// Get Patch JSON from Ghub
 	patch, err := clients.CommitsClient(&commitUrl)
 	if err != nil {
 		detail := fmt.Errorf("Error getting patch: %v", err)
 		fmt.Println(detail)
 	}
+
+	// Get to-do statement(s) from JSON
 	issue, err := parser.ParsePatch(&patch)
 	if err != nil {
 		detail := fmt.Errorf("Error getting issue: %v", err)
 		fmt.Println(detail)
 	}
-	utils.WebLog("Issue: " + issue)
-	// err := clients.IssuesClient(&issue)
+	for i, v := range issue {
+		if v[1] == "+" {
+			slog := fmt.Sprintf("Issue %v: %v\n", i, v[2])
+			utils.WebLog(slog)
+		}
+	}
+
+	// Todo connect to ghub and submit issue
 
 }
