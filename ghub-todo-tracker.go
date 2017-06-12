@@ -44,14 +44,22 @@ func todoGenerator(b *[]byte) {
 	// Parse commit URL from ghub webhook JSON push
 	commitUrl, err := parser.ParseCommit(b)
 	if err != nil {
-		fmt.Printf("error: %v\n", err)
-		panic(err)
+		detail := fmt.Errorf("Error getting commit url: %v", err)
+		fmt.Println(detail)
 	}
 	utils.WebLog(commitUrl)
 
 	patch, err := clients.CommitsClient(&commitUrl)
+	if err != nil {
+		detail := fmt.Errorf("Error getting patch: %v", err)
+		fmt.Println(detail)
+	}
 	issue, err := parser.ParsePatch(&patch)
-	utils.WebLog(issue)
+	if err != nil {
+		detail := fmt.Errorf("Error getting issue: %v", err)
+		fmt.Println(detail)
+	}
+	utils.WebLog("Issue: " + issue)
 	// err := clients.IssuesClient(&issue)
 
 }
