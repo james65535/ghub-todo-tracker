@@ -29,7 +29,7 @@ func (ghI *GhubIssue)SetIssue(title string, body *string){
 	ghI.Body = body
 }
 
-func (ghI *GhubIssue)SubmitIssue()(error) {
+func (ghI *GhubIssue)SubmitIssue(t *string)(error) {
 
 	body, err := json.Marshal(*ghI)
 	if err != nil {
@@ -40,8 +40,8 @@ func (ghI *GhubIssue)SubmitIssue()(error) {
 	url := "https://api.github.com/repos/james65535/ghub-todo-tracker/issues"
 	request, err := http.NewRequest("POST", url, bytes.NewBuffer(body))
 	request.Header.Set("Content-Type", "application/json")
-	// TODO remove token
-	request.Header.Set("Authorization", "token d5adfeed8896e9a852d69d318c779695d678a6ed")
+	token := "token " + *t
+	request.Header.Set("Authorization", token)
 
 	client := &http.Client{}
 	resp, err := client.Do(request)

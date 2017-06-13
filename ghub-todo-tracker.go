@@ -11,14 +11,15 @@ import (
 )
 
 var address = flag.String("address", "localhost:8000", "server address")
+var token = flag.String("token", "", "Github api token")
 
 func main() {
-	// TODO temp to test ghub issue
-	flag.Parse()
 
+	flag.Parse()
+	// TODO test todo for ghub
 	http.HandleFunc("/", receivePush)
 	http.ListenAndServe(*address, nil)
-	// TODO temp to test ghub issue 2
+
 }
 
 // Receives JSON payload from webhook push
@@ -75,7 +76,7 @@ func todoGenerator(b *[]byte) {
 			util.WebLog(issueLog)
 			var issue = clients.GhubIssue{}
 			issue.SetIssue("todo", &v[2])
-			issue.SubmitIssue()
+			issue.SubmitIssue(token)
 		}
 	}
 }
