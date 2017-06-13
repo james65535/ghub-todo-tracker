@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"flag"
 	"fmt"
-	"github.com/james65535/ghub-todo-tracker/utils"
+	"github.com/james65535/ghub-todo-tracker/util"
 	"github.com/james65535/ghub-todo-tracker/clients"
 	"github.com/james65535/ghub-todo-tracker/parser"
 )
@@ -37,7 +37,7 @@ func receivePush(w http.ResponseWriter, r *http.Request) {
 
 	todoGenerator(&body)
 	// TODO determine what to log
-	// utils.WebLog()
+	// util.WebLog()
 }
 
 func todoGenerator(b *[]byte) {
@@ -52,7 +52,7 @@ func todoGenerator(b *[]byte) {
 		detail := fmt.Errorf("Error getting commit url: %v", err)
 		fmt.Println(detail)
 	}
-	utils.WebLog(commitUrl)
+	util.WebLog(commitUrl)
 
 	// Get Patch JSON from Ghub
 	patch, err := clients.CommitsClient(&commitUrl)
@@ -70,7 +70,7 @@ func todoGenerator(b *[]byte) {
 	for i, v := range issue {
 		if v[1] == "+" {
 			issueLog := fmt.Sprintf("Issue %v: %v\n", i, v[2])
-			utils.WebLog(issueLog)
+			util.WebLog(issueLog)
 			clients.IssuesClient(&v[2])
 		}
 	}

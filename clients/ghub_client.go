@@ -3,7 +3,7 @@ package clients
 import (
 	"io/ioutil"
 	"net/http"
-	"github.com/james65535/ghub-todo-tracker/utils"
+	"github.com/james65535/ghub-todo-tracker/util"
 	"encoding/json"
 	"bytes"
 )
@@ -37,7 +37,7 @@ func IssuesClient(s *string)(error) {
 	defer resp.Body.Close()
 
 	respBody, err := ioutil.ReadAll(resp.Body)
-	utils.WebLog("Issues Client log: " + string(respBody))
+	util.WebLog("Issues Client log: " + string(respBody))
 
 	// TODO Post info to ghub issues board
 	return err
@@ -50,6 +50,6 @@ func CommitsClient(s *string)([]byte, error) {
 	}
 	defer resp.Body.Close()
 	body, err := ioutil.ReadAll(resp.Body)
-	utils.WebLog("Commit Client log: " + string(body))
+	util.WebLog("Commit Client log: " + string(body))
 	return body, err
 }
