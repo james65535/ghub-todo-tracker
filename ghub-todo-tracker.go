@@ -13,6 +13,7 @@ import (
 var address = flag.String("address", "localhost:8000", "server address")
 
 func main() {
+	// TODO temp to test ghub issue
 	flag.Parse()
 
 	http.HandleFunc("/", receivePush)
@@ -71,10 +72,9 @@ func todoGenerator(b *[]byte) {
 		if v[1] == "+" {
 			issueLog := fmt.Sprintf("Issue %v: %v\n", i, v[2])
 			util.WebLog(issueLog)
-			clients.IssuesClient(&v[2])
+			var issue = clients.GhubIssue{}
+			issue.SetIssue("todo", &v[2])
+			issue.SubmitIssue()
 		}
 	}
-
-	// TODO connect to ghub and submit issue
-
 }

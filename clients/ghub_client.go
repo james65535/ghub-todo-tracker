@@ -6,28 +6,42 @@ import (
 	"github.com/james65535/ghub-todo-tracker/util"
 	"encoding/json"
 	"bytes"
+	"fmt"
 )
 
+type GhubIssue struct {
+	Title string `json:"title"`
+	Body *string `json:"body"`
+	Assignee string `json:"assignee,omitempty"`
+	Milestone int `json:"milestone,omitempty"`
+	Labels []string `json:"labels,omitempty"`
+	Assignees []string `json:"assignees,omitempty"`
+}
+
+/*
 func AuthClient (username, password string) error {
 
 }
+*/
 
-func IssuesClient(s *string)(error) {
+func (ghI *GhubIssue)SetIssue(title string, body *string){
+	ghI.Title = "todo"
+	ghI.Body = body
+}
 
-	type ghubIssues struct {
-		title, body, assignee string
-		milestone int
-		labels, assignees []string
-	}
+func (ghI *GhubIssue)SubmitIssue()(error) {
 
-	var issue = ghubIssues{"todo", *s, "", 0, nil, nil}
-	body, err := json.Marshal(issue)
+	body, err := json.Marshal(*ghI)
 	if err != nil {
 		panic(err)
 	}
+	fmt.Printf("Issue JSON: %v\n", string(body))
+	// TODO remove personal link
 	url := "https://api.github.com/repos/james65535/ghub-todo-tracker/issues"
 	request, err := http.NewRequest("POST", url, bytes.NewBuffer(body))
 	request.Header.Set("Content-Type", "application/json")
+	// TODO remove token
+	request.Header.Set("Authorization", "token d5adfeed8896e9a852d69d318c779695d678a6ed")
 
 	client := &http.Client{}
 	resp, err := client.Do(request)
@@ -43,6 +57,7 @@ func IssuesClient(s *string)(error) {
 	return err
 }
 
+// TODO this may have to go elsewhere
 func CommitsClient(s *string)([]byte, error) {
 	resp, err := http.Get(*s)
 	if err != nil {
