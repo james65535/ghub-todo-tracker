@@ -69,8 +69,9 @@ func todoGenerator(b *[]byte) {
 	}
 	for i, v := range issue {
 		if v[1] == "+" {
-			slog := fmt.Sprintf("Issue %v: %v\n", i, v[2])
-			utils.WebLog(slog)
+			issueLog := fmt.Sprintf("Issue %v: %v\n", i, v[2])
+			utils.WebLog(issueLog)
+			clients.IssuesClient(&v[2])
 		}
 	}
 

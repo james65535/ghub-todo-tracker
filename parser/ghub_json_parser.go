@@ -5,7 +5,6 @@ import (
 	//"bytes"
 	//"fmt"
 	"regexp"
-	"fmt"
 )
 
 type issue struct {
@@ -41,16 +40,9 @@ func ParsePatch(s *[]byte)([][]string, error) {
 		"files",
 		"[0]",
 		"patch")
-
-	return patchExtract(patch), err
-}
-
-func patchExtract (p []byte) [][]string {
 	// Extract to do element(s)
-	fmt.Printf("original body: %v\n", string(p))
-	/* Enhanced regex for neutral, addition, and subtractions*/
+	// Enhanced regex for neutral, subtractions, and additions - for now we want the latter
 	addsRegex := regexp.MustCompile(`(?m)\\n([ ,\+,\-])[\\t, , \/,]+TODO *([\w, ]*)`)
-
-	ret := addsRegex.FindAllStringSubmatch(string(p), -1)
-	return ret
+	match := addsRegex.FindAllStringSubmatch(string(patch), -1)
+	return match, err
 }
