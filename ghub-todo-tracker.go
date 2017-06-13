@@ -18,6 +18,7 @@ func main() {
 
 	http.HandleFunc("/", receivePush)
 	http.ListenAndServe(*address, nil)
+	// TODO temp to test ghub issue 2
 }
 
 // Receives JSON payload from webhook push
